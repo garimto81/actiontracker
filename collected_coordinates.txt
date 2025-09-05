@@ -1,0 +1,18 @@
+Collected Coordinates:
+==============================
+ALICE_BUTTON: (1216, 616)
+PLAYER2_BUTTON: (1370, 619)
+PLAYER3_BUTTON: (1555, 614)
+EDIT_FIELD: (1717, 620)
+COMPLETE_BUTTON: (1715, 619)
+DELETE_BUTTON: (1715, 619)
+
+Code:
+COORDS = {
+    'alice_button': (1216, 616),
+    'player2_button': (1370, 619),
+    'player3_button': (1555, 614),
+    'edit_field': (1717, 620),
+    'complete_button': (1715, 619),
+    'delete_button': (1715, 619),
+}
