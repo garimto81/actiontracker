@@ -1,0 +1,23 @@
+# Core GUI and automation libraries
+pyautogui==0.9.54
+pillow>=10.0.0
+opencv-python>=4.8.0
+numpy>=1.24.0
+
+# Data processing
+pandas>=2.0.0
+requests>=2.31.0
+
+# Windows specific (optional for other platforms)
+pywin32>=305; sys_platform == 'win32'
+
+# Keyboard control
+keyboard>=0.13.5
+
+# For building executable
+pyinstaller>=6.0.0
+
+# Additional dependencies for image processing
+python-xlib>=0.33; sys_platform == 'linux'
+pyobjc-core>=9.0; sys_platform == 'darwin'
+pyobjc-framework-Quartz>=9.0; sys_platform == 'darwin'

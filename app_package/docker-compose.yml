@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  action-tracker:
+    build: .
+    image: action-tracker-automation:latest
+    container_name: action-tracker-app
+    ports:
+      - "80:80"
+      - "8888:8888"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8888
+      - PYTHONUNBUFFERED=1
+      - TZ=Asia/Seoul
+    volumes:
+      - ./data:/app/data
+      - ./logs:/var/log/supervisor
+    restart: unless-stopped
+    networks:
+      - action-tracker-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: MongoDB for data persistence
+  mongodb:
+    image: mongo:latest
+    container_name: action-tracker-db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=actiontracker123
+      - MONGO_INITDB_DATABASE=actiontracker
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - action-tracker-network
+    restart: unless-stopped
+
+  # Optional: Redis for caching and session management
+  redis:
+    image: redis:alpine
+    container_name: action-tracker-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - action-tracker-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+networks:
+  action-tracker-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+  redis_data:
